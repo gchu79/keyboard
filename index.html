@@ -6,25 +6,155 @@
 
     <style>
         .whitenote {
-            height: 100%;
+            height: 85%;
             width: 50px;
             float: left;
             position: relative;
             background: white;
             overflow: visible;
 
-            border-right: 1px solid black;
+            border: 1px solid black;
+
+            text-align: center;
+            font-size: 18px;
         }
 
         .blacknote {
-
             position: absolute;
             height: 65%;
             width: 55%;
-            left: 68%;
+            left: 75%;
             z-index: 1;
             background: #777;
 
+            border: 2px solid black;
+        }
+
+        .key {
+            top: 180px;
+            height: 13%;
+            width: 50px;
+            float: left;
+            position: absolute;
+            background: white;
+            overflow: visible;
+
+            border: 2px;
+
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .key0 {
+            top: 10px;
+            height: 5%;
+            width: 50px;
+            float: left;
+            position: relative;
+            background: white;
+            overflow: visible;
+
+            border: 1px solid black;
+
+            text-align: center;
+
+            font-size: 20px;
+        }   
+        
+        .key0a {
+            top: 10px;
+            height: 5%;
+            width: 50px;
+            float: left;
+            position: relative;
+            background: yellow;
+            overflow: visible;
+
+            border: 1px solid black;
+
+            text-align: center;
+
+            font-size: 20px;
+        }         
+
+        .key1 {
+            top: 20px;
+            height: 5%;
+            width: 50px;
+            float: left;
+            position: relative;
+            background: white;
+            overflow: visible;
+
+            border: 1px solid black;
+
+            text-align: center;
+
+            font-size: 20px;
+        }
+
+        .key2 {
+            top: 20px;
+            height: 5%;
+            width: 50px;
+            float: left;
+            position: relative;
+            background: yellow;
+            overflow: visible;
+
+            border: 1px solid black;
+
+            text-align: center;
+
+            font-size: 20px;
+        }
+
+        .key3 {
+            top: 30px;
+            height: 5%;
+            width: 102px;
+            float: left;
+            position: relative;
+            background: white;
+            overflow: visible;
+
+            border: 1px solid black;
+
+            text-align: center;
+
+            font-size: 14px;
+        }
+
+        .key4 {
+            top: 30px;
+            height: 5%;
+            width: 102px;
+            float: left;
+            position: relative;
+            background: yellow;
+            overflow: visible;
+
+            border: 1px solid black;
+
+            text-align: center;
+
+            font-size: 14px;
+        }
+
+        .key5 {
+            top: 50px;
+            height: 5%;
+            width: 102px;
+            float: left;
+            position: relative;
+            background: yellow;
+            overflow: visible;
+
+            border: 1px solid black;
+
+            text-align: center;
+
+            font-size: 20px;
         }
 
         #container {
@@ -36,6 +166,16 @@
             height: 205px;
         }
 
+        #container2 {
+            position: absolute;
+            top: 270px;
+            width: 728px;
+            left: calc(50% - 400px);
+            border: 5px solid black;
+
+            height: 410px;
+        }
+
     </style>
 
 </head>
@@ -44,12 +184,21 @@
 
     <div id='container'>
     </div>
+    <div id='container2'></div>
 
     <script>
-        
         const synth = new Tone.PolySynth().toDestination();
         var data = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
-        var html = '';
+        var keys = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#'];
+        var keyf = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb'];
+        var keysf = ['#', 'b', '', '', '', '', '', '', '', '','', '', '', '','', '', '', '',];
+        var major = ['Major', 'Natural Minor', 'Melodic Minor', 'Harmonic Minor', '-', '-'];
+        var scaleMajor = [0, 2, 4, 5, 7, 9, 11, 12];
+        var scaleNaturalMinor = [0, 2, 3, 5, 7, 8, 10, 12];
+        var scaleMelodicMinor = [0, 2, 3, 5, 7, 9, 11, 12];
+        var scaleHarmonicMinor = [0, 2, 3, 5, 7, 8, 11, 12];
+        var html = "";
+        var html1 = "";
 
 
         for (var octave = 0; octave < 2; octave++) {
@@ -57,33 +206,206 @@
                 var note = data[i];
                 var hasSharp = (['E', 'B'].indexOf(note) == -1);
 
-                html += `<div class='whitenote' onmousedown='noteDown(this, false)' onmouseup='noteUp(this,false)' onmouseleave='noteUp(this,false)' data-note='${note + (octave+4)}'>`;
+                html += `<div class='whitenote' id=${note + (octave+4)} onmousedown='noteDown(this, false)' onmouseup='noteUp(this,false)' onmouseleave='noteUp(this,false)' data-note='${note + (octave+4)}'>`;
+
+                html += `<div class='key'>${note}</div>`
 
                 if (hasSharp) {
-                    html += `<div class='blacknote' onmousedown='noteDown(this, true)' onmouseup='noteUp(this, true)' onmouseleave='noteUp(this,true)' data-note='${note + '#' + (octave+4)}'></div>`;
+                    html += `<div class='blacknote' id=${note + '#' + (octave+4)} onmousedown='noteDown(this, true)' onmouseup='noteUp(this, true)' onmouseleave='noteUp(this,true)' data-note='${note + '#' + (octave+4)}'></div>`;
                 }
 
                 html += `</div>`;
-                
+
             }
         }
-        
-        
 
         document.getElementById('container').innerHTML = html;
 
+        html1 += "<div>Select Key</div>";
+
+        for (var i = 0; i < 13; i++) {
+            var key0 = keysf[i];
+
+            html1 += `<div class='key0' id=${key0} onmousedown='key0Down(this)' data-key0='${key0}'>${key0}</div>`
+
+        }
+        
+        html1 += `<div class='key0a' id='keyselected'>#</div>`
+        
+        
+        for (var i = 0; i < 12; i++) {
+            var key1 = keys[i];
+
+            html1 += `<div class='key1' id=${key1} onmousedown='keyDown(this)' data-key='${key1}'>${key1}</div>`
+/* how to switch between # and b */
+        }
+        
+        
+        html1 += `<div class='key1'></div>`
+        html1 += `<div class='key2' id='selected'></div>`
+
+
+
+        for (var i = 0; i < 6; i++) {
+            var mj = major[i];
+
+            html1 += `<div class='key3' id=${mj} onmousedown='key1Down(this)' data-key1='${mj}'>${mj}</div>`
+
+        }
+
+        html1 += `<div class='key4' id='selected2'></div>`
+        
+        for (var i = 0; i < 7; i++) {
+            for (var j = 0; j < 7; j++) {
+                html1 += `<div class='key5' id=${i}${j}   ></div>`
+            }
+        }
+
+        document.getElementById('container2').innerHTML = html1;
+
+        document.getElementById('selected').innerHTML = "C";
+        document.getElementById('selected2').innerHTML = "Major";
+        
         function noteUp(elem, isSharp) {
             elem.style.background = isSharp ? '#777' : '';
 
         }
 
+        function keyDown(elem) {
+            var ky = document.getElementById(elem.dataset.key).innerHTML;
+
+/*            if ((ky == "C") || (ky == "D")|| (ky == "E") || (ky == "F") || (ky == "G") || (ky == "A") || (ky = "B"))  { */
+            
+                document.getElementById('selected').innerHTML = ky;
+
+            
+            buildChord();
+
+        }
+
+
+        function key0Down(elem) {
+            var ky0 = elem.dataset.key0;
+
+            document.getElementById('keyselected').innerHTML = ky0;
+            
+            if (ky0 == "#") {
+                document.getElementById('C#').innerHTML = "C#";  
+                document.getElementById('D#').innerHTML = "D#";  
+                document.getElementById('F#').innerHTML = "F#";  
+                document.getElementById('G#').innerHTML = "G#";  
+                document.getElementById('A#').innerHTML = "A#";  
+            } else {
+                document.getElementById('C#').innerHTML = "Db";  
+                document.getElementById('D#').innerHTML = "Eb";  
+                document.getElementById('F#').innerHTML = "Gb";  
+                document.getElementById('G#').innerHTML = "Ab";  
+                document.getElementById('A#').innerHTML = "Bb";                  
+            }
+            
+
+            buildChord();
+        }        
+        
+        
+        function key1Down(elem) {
+            var ky1 = elem.dataset.key1;
+
+            document.getElementById('selected2').innerHTML = ky1;        
+            
+            buildChord();
+        }
+        
+        function buildChord() {
+            varScale = document.getElementById('keyselected').innerHTML; /* b */
+                varKey = document.getElementById('selected').innerHTML; /* Eb */
+                varChord = document.getElementById('selected2').innerHTML; /* Major */
+            
+                if (varScale == "#") {
+                    varStart = keys.indexOf(varKey);
+                } else {
+                    varStart = keyf.indexOf(varKey);
+                }
+
+                for (var i = 0; i < 1; i++) {
+                    for (var j = 0; j < 8; j++) {
+                        
+                        varGrid = '' + i + j;
+
+                        if (varScale == "#") {
+                            
+                            if (varChord == "Major") {
+                                scaleOffSet = scaleMajor[j] + varStart;
+                            }
+                            
+                            if (varChord == "Natural Minor") {
+                                scaleOffSet = scaleNaturalMinor[j] + varStart;
+                            }
+                            
+                            if (varChord == "Melodic Minor") {
+                                scaleOffSet = scaleMelodicMinor[j] + varStart;
+                            }                            
+
+                            if (varChord == "Harmonic Minor") {
+                                scaleOffSet = scaleHarmonicMinor[j] + varStart;
+                            }                               
+                
+                            document.getElementById(varGrid).innerHTML = keys[scaleOffSet];
+                        }
+                        
+                        if (varScale == "b") {
+
+                            if (varChord == "Major") {
+                                scaleOffSet = scaleMajor[j] + varStart;
+                            }
+                            
+                            if (varChord == "Natural Minor") {
+                                scaleOffSet = scaleNaturalMinor[j] + varStart;
+                            }
+                            
+                            if (varChord == "Melodic Minor") {
+                                scaleOffSet = scaleMelodicMinor[j] + varStart;
+                            }                            
+
+                            if (varChord == "Harmonic Minor") {
+                                scaleOffSet = scaleHarmonicMinor[j] + varStart;
+                            }                             
+
+                            document.getElementById(varGrid).innerHTML = keyf[scaleOffSet];
+                        }
+            }
+            
+                }
+            
+        }
+
         function noteDown(elem, isSharp) {
             var note = elem.dataset.note;
 
+            /*            
+                     var note3 = "D#4"; 
+                     var note5 = "D#4"; 
+                     document.getElementById(note).style.background = "blue"; 
+             */
+
             elem.style.background = isSharp ? 'black' : '#ccc';
             synth.triggerAttackRelease(note, "16n");
-            
             event.stopPropagation();
+
+
+            /*          
+                        document.body.style.background = 'green';
+                        synth.triggerAttackRelease([note,note3, note5], "16n"); 
+                        synth.triggerAttackRelease(["C4","E4", "G4"], "16n");                        
+                        window.alert(elem.dataset.note);
+            document.getElementById("C4").style.background = "red";
+            document.getElementById("E4").style.background = "red";
+            document.getElementById("G4").style.background = "red";
+            document.getElementById("G#4").style.background = "red";
+            window.alert(keyf.indexOf("Gb"))            
+            
+            */
+
         }
 
     </script>
