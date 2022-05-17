@@ -44,7 +44,7 @@
             text-align: center;
             font-size: 14px;
         }
-        
+
         .key0 {
             top: 10px;
             height: 5%;
@@ -59,8 +59,8 @@
             text-align: center;
 
             font-size: 20px;
-        }   
-        
+        }
+
         .key0a {
             top: 10px;
             height: 5%;
@@ -75,7 +75,7 @@
             text-align: center;
 
             font-size: 20px;
-        }         
+        }
 
         .key1 {
             top: 20px;
@@ -189,9 +189,9 @@
     <script>
         const synth = new Tone.PolySynth().toDestination();
         var data = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
-        var keys = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#'];
-        var keyf = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb'];
-        var keysf = ['#', 'b', '', '', '', '', '', '', '', '','', '', '', '','', '', '', '',];
+        var keys = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#'];
+        var keyf = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb'];
+        var keysf = ['#', 'b', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ];
         var major = ['Major', 'Natural Minor', 'Melodic Minor', 'Harmonic Minor', '-', '-'];
         var scaleMajor = [0, 2, 4, 5, 7, 9, 11, 12];
         var scaleNaturalMinor = [0, 2, 3, 5, 7, 8, 10, 12];
@@ -229,18 +229,18 @@
             html1 += `<div class='key0' id=${key0} onmousedown='key0Down(this)' data-key0='${key0}'>${key0}</div>`
 
         }
-        
+
         html1 += `<div class='key0a' id='keyselected'>#</div>`
-        
-        
+
+
         for (var i = 0; i < 12; i++) {
             var key1 = keys[i];
 
             html1 += `<div class='key1' id=${key1} onmousedown='keyDown(this)' data-key='${key1}'>${key1}</div>`
-/* how to switch between # and b */
+            /* how to switch between # and b */
         }
-        
-        
+
+
         html1 += `<div class='key1'></div>`
         html1 += `<div class='key2' id='selected'></div>`
 
@@ -254,7 +254,7 @@
         }
 
         html1 += `<div class='key4' id='selected2'></div>`
-        
+
         for (var i = 0; i < 7; i++) {
             for (var j = 0; j < 7; j++) {
                 html1 += `<div class='key5' id=${i}${j}   ></div>`
@@ -265,7 +265,7 @@
 
         document.getElementById('selected').innerHTML = "C";
         document.getElementById('selected2').innerHTML = "Major";
-        
+
         function noteUp(elem, isSharp) {
             elem.style.background = isSharp ? '#777' : '';
 
@@ -274,13 +274,11 @@
         function keyDown(elem) {
             var ky = document.getElementById(elem.dataset.key).innerHTML;
 
-/*            if ((ky == "C") || (ky == "D")|| (ky == "E") || (ky == "F") || (ky == "G") || (ky == "A") || (ky = "B"))  { */
-            
-                document.getElementById('selected').innerHTML = ky;
+            /*            if ((ky == "C") || (ky == "D")|| (ky == "E") || (ky == "F") || (ky == "G") || (ky == "A") || (ky = "B"))  { */
 
-            
+            document.getElementById('selected').innerHTML = ky;
+
             buildChord();
-
         }
 
 
@@ -288,124 +286,115 @@
             var ky0 = elem.dataset.key0;
 
             document.getElementById('keyselected').innerHTML = ky0;
-            
+
             if (ky0 == "#") {
-                document.getElementById('C#').innerHTML = "C#";  
-                document.getElementById('D#').innerHTML = "D#";  
-                document.getElementById('F#').innerHTML = "F#";  
-                document.getElementById('G#').innerHTML = "G#";  
-                document.getElementById('A#').innerHTML = "A#";  
+                document.getElementById('C#').innerHTML = "C#";
+                document.getElementById('D#').innerHTML = "D#";
+                document.getElementById('F#').innerHTML = "F#";
+                document.getElementById('G#').innerHTML = "G#";
+                document.getElementById('A#').innerHTML = "A#";
             } else {
-                document.getElementById('C#').innerHTML = "Db";  
-                document.getElementById('D#').innerHTML = "Eb";  
-                document.getElementById('F#').innerHTML = "Gb";  
-                document.getElementById('G#').innerHTML = "Ab";  
-                document.getElementById('A#').innerHTML = "Bb";                  
+                document.getElementById('C#').innerHTML = "Db";
+                document.getElementById('D#').innerHTML = "Eb";
+                document.getElementById('F#').innerHTML = "Gb";
+                document.getElementById('G#').innerHTML = "Ab";
+                document.getElementById('A#').innerHTML = "Bb";
             }
-            
 
             buildChord();
-        }        
-        
-        
+                        
+        }
+
+
         function key1Down(elem) {
             var ky1 = elem.dataset.key1;
 
-            document.getElementById('selected2').innerHTML = ky1;        
+            document.getElementById('selected2').innerHTML = ky1;
+
+    
+            
+                document.getElementById(document.getElementById('01').innerHTML + '4').style.background = "red";
             
             buildChord();
+                       
+
         }
+
         
         function buildChord() {
             varScale = document.getElementById('keyselected').innerHTML; /* b */
-                varKey = document.getElementById('selected').innerHTML; /* Eb */
-                varChord = document.getElementById('selected2').innerHTML; /* Major */
-            
-                if (varScale == "#") {
-                    varStart = keys.indexOf(varKey);
-                } else {
-                    varStart = keyf.indexOf(varKey);
+            varKey = document.getElementById('selected').innerHTML; /* Eb */
+            varChord = document.getElementById('selected2').innerHTML; /* Major */
+
+            if (varScale == "#") {
+                varStart = keys.indexOf(varKey);
+            } else {
+                varStart = keyf.indexOf(varKey);
+            }
+
+            for (var i = 0; i < 1; i++) {
+                for (var j = 0; j < 8; j++) {
+
+                    varGrid = '' + i + j;
+
+                    if (varScale == "#") {
+
+                        if (varChord == "Major") {
+                            scaleOffSet = scaleMajor[j] + varStart;
+                        }
+
+                        if (varChord == "Natural Minor") {
+                            scaleOffSet = scaleNaturalMinor[j] + varStart;
+                        }
+
+                        if (varChord == "Melodic Minor") {
+                            scaleOffSet = scaleMelodicMinor[j] + varStart;
+                        }
+
+                        if (varChord == "Harmonic Minor") {
+                            scaleOffSet = scaleHarmonicMinor[j] + varStart;
+                        }
+
+                        document.getElementById(varGrid).innerHTML = keys[scaleOffSet];
+                    }
+
+                    if (varScale == "b") {
+
+                        if (varChord == "Major") {
+                            scaleOffSet = scaleMajor[j] + varStart;
+                        }
+
+                        if (varChord == "Natural Minor") {
+                            scaleOffSet = scaleNaturalMinor[j] + varStart;
+                        }
+
+                        if (varChord == "Melodic Minor") {
+                            scaleOffSet = scaleMelodicMinor[j] + varStart;
+                        }
+
+                        if (varChord == "Harmonic Minor") {
+                            scaleOffSet = scaleHarmonicMinor[j] + varStart;
+                        }
+
+                        document.getElementById(varGrid).innerHTML = keyf[scaleOffSet];
+                    }
                 }
-
-                for (var i = 0; i < 1; i++) {
-                    for (var j = 0; j < 8; j++) {
-                        
-                        varGrid = '' + i + j;
-
-                        if (varScale == "#") {
-                            
-                            if (varChord == "Major") {
-                                scaleOffSet = scaleMajor[j] + varStart;
-                            }
-                            
-                            if (varChord == "Natural Minor") {
-                                scaleOffSet = scaleNaturalMinor[j] + varStart;
-                            }
-                            
-                            if (varChord == "Melodic Minor") {
-                                scaleOffSet = scaleMelodicMinor[j] + varStart;
-                            }                            
-
-                            if (varChord == "Harmonic Minor") {
-                                scaleOffSet = scaleHarmonicMinor[j] + varStart;
-                            }                               
                 
-                            document.getElementById(varGrid).innerHTML = keys[scaleOffSet];
-                        }
-                        
-                        if (varScale == "b") {
 
-                            if (varChord == "Major") {
-                                scaleOffSet = scaleMajor[j] + varStart;
-                            }
-                            
-                            if (varChord == "Natural Minor") {
-                                scaleOffSet = scaleNaturalMinor[j] + varStart;
-                            }
-                            
-                            if (varChord == "Melodic Minor") {
-                                scaleOffSet = scaleMelodicMinor[j] + varStart;
-                            }                            
-
-                            if (varChord == "Harmonic Minor") {
-                                scaleOffSet = scaleHarmonicMinor[j] + varStart;
-                            }                             
-
-                            document.getElementById(varGrid).innerHTML = keyf[scaleOffSet];
-                        }
+                
             }
             
-                }
-            
+ 
+
         }
 
         function noteDown(elem, isSharp) {
             var note = elem.dataset.note;
 
-            /*            
-                     var note3 = "D#4"; 
-                     var note5 = "D#4"; 
-                     document.getElementById(note).style.background = "blue"; 
-             */
-
             elem.style.background = isSharp ? 'black' : '#ccc';
             synth.triggerAttackRelease(note, "16n");
-            event.stopPropagation();
-
-
-            /*          
-                        document.body.style.background = 'green';
-                        synth.triggerAttackRelease([note,note3, note5], "16n"); 
-                        synth.triggerAttackRelease(["C4","E4", "G4"], "16n");                        
-                        window.alert(elem.dataset.note);
-            document.getElementById("C4").style.background = "red";
-            document.getElementById("E4").style.background = "red";
-            document.getElementById("G4").style.background = "red";
-            document.getElementById("G#4").style.background = "red";
-            window.alert(keyf.indexOf("Gb"))            
-            
-            */
-
+            event.stopPropagation(); 
+                
         }
 
     </script>
